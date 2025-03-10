@@ -1,0 +1,44 @@
+project:
+  type: book
+
+book:
+  title: "Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R"
+  reader-mode: true
+  page-footer:
+    left: |
+      Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes".
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  cover-image: cover.jpg
+  favicon: cover.jpg
+  site-url: https://r4ds.hadley.nz/
+  repo-url: https://github.com/hadley/r4ds/
+  repo-branch: main
+  repo-actions: [edit, issue]
+
+  chapters:
+    - index.qmd
+    - prefacio.qmd
+    - intro.qmd
+    
+    - part: geocodificacion.qmd
+      chapters:
+        - bases-sinave.qmd
+        - geo.qmd
+    
+    - part: focos_activos.qmd
+      chapters:
+        - cadenas_transmision.qmd
+        - cadenas_transmision_r.qmd    
+ 
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
