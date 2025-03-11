@@ -1,1 +1,42 @@
+
 # Bases del SINAVE
+
+## **<span style="color:#003300;">Bajar las bases de datos del [SINAVE](https://www.sinave.gob.mx/).</span>**
+
+### **<span style="color:#660033;">Escribir en el buscador de preferencia la página del sinave (https://www.sinave.gob.mx/).</span>**
+
+
+
+### **<span style="color:#660033;">En la página del sinave buscar y darle click al boton Enfermedades Transmitidas por Vector.</span>**
+
+
+![](https://www.sinave.gob.mx/imagenes4t/imagen9_.png)
+
+
+<img src="https://www.sinave.gob.mx/imagenes4t/imagen1.png" alt="Kitten"
+	title="A cute kitten" width="150" height="100" />
+
+### **<span style="color:#660033;">Ingresar el nombre del usurio y contraseña.</span>** 
+
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/user3.jpg)
+
+### <span style="color:#660033;">Ingresar a la sección de **Reportes**.</span> 
+
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_reg_1.jpg)
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_seg_1.jpg)
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_rep_1.jpg)
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_sal_1.jpg)
+
+
+### <span style="color:#660033;">Darle click a **Descarga de Datos Vectores**</span> 
+
+<td align="center"><input type="submit" name="ctl00$ContentPlaceHolder1$Button3" value="Descarga de Datos Vectores" onclick="javascript:Reporte3();" id="ctl00_ContentPlaceHolder1_Button3" style="color:White;background-color:#666666;border-color:#000066;font-weight:bold;" />
+
+### **<span style="color:#660033;">Bajar la base de datos de la última fecha de la enfermedad de interés.</span>** 
+
+![](images/descarga_sinave.png)
+
+
+### **<span style="color:#660033;">Guardar la base en la carpeta de interes.</span>** 
+
+### **<span style="color:#660033;">Extraer el txt del archivo con extensión RAR.</span>** 
