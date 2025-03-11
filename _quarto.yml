@@ -3,7 +3,7 @@ project:
   output-dir: _book
 
 book:
-  title: "Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R"
+  title: "Identificación de los Focos de la Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R"
   reader-mode: true
   page-footer:
     left: |
