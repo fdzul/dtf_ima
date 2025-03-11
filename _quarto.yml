@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: _book
 
 book:
   title: "Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R"
@@ -9,8 +10,8 @@ book:
       Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes".
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
-  cover-image: cover.jpg
-  favicon: cover.jpg
+  cover-image: images/cover.jpg
+  favicon: images/cover.jpg
   site-url: https://r4ds.hadley.nz/
   repo-url: https://github.com/hadley/r4ds/
   repo-branch: main
@@ -37,8 +38,10 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+    code-link: true
+    author-meta: "Felipe Dzul-Manzanilla & Fabián Correa-Morales"
+    include-in-header: "plausible.html"
+    callout-appearance: simple
 
 editor: visual
 
