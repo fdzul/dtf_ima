@@ -40,3 +40,5 @@
 ### **<span style="color:#660033;">Guardar la base en la carpeta de interes.</span>** 
 
 ### **<span style="color:#660033;">Extraer el txt del archivo con extensión RAR.</span>** 
+
+Para MACOS se puede usar el programa [The Unarchiver](https://theunarchiver.com/) y para WINOS pueden usar [7-Zip](https://www.7-zip.org). Ambos son libres.
