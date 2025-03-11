@@ -1,2 +1,3 @@
-
 # Geocodificacion
+
+La geocodificación es el proceso de transformar las dirección física de los domicilios en coordenadas geográficas. Para poder realizar la geocodificación se requiere bajar la base de datos de los casos de dengue del SINAVE. La presente sección del libro incluye dos capítulos, el primero relacionado con la adquisión de la base de dengue y el segundo con la geocodificación con el servicio de geocoding de google. Por lo que es requisito básico gestionar el API para geocodificar.
