@@ -1,6 +1,5 @@
-# **<span style="color:#003300;">Welcome</span>** {.unnumbered}
 
-<hr style="height:2px;border-width:0;color:#330019;background-color:#330019"> 
+## **<span style="color:#003300;">Welcome</span>** {.unnumbered}
 
 <span style="color:#660033;">Este documento es la versión en línea del quarto book </span><span style="color:#003300;"> **Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R**</span><span style="color:#660033;">. Es un libro diseñado para desarrollar las competencias específicas para la identificación de los escenarios epidemiológicos o los focos de transmisión persistente y los focos de transmisión activa de las arbovirosis en áreas urbanas y metropolitanas de México usando el software [R](https://cran.r-project.org) & [Rstudio](https://posit.co/download/rstudio-desktop/).</span>
 
@@ -23,5 +22,7 @@
 <span style="color:#660033;">**Note**: El manual no ha sido publicado en físico por ninguna editorial y los autores están de acuerdo en llegar a un trato con una editorial.</span>
 
 
+## Agradecimientos
 
+El libro es alojado en https://www.netlify.com y agradecemos su soporte como open source para este tipo de iniciativas. Asi mismo, agradecemos al personal de vectores de todos los estados por su continua retroalimentación.
 

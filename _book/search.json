@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Identificación de los Focos de la Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R",
     "section": "",
-    "text": "Welcome\n\nEste documento es la versión en línea del quarto book  Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R. Es un libro diseñado para desarrollar las competencias específicas para la identificación de los escenarios epidemiológicos o los focos de transmisión persistente y los focos de transmisión activa de las arbovirosis en áreas urbanas y metropolitanas de México usando el software R & Rstudio.\n\nEl documento no tiene la intensión de ser una referencia teórica sobre los diferentes análisis espaciales que se abordan, por el contrario el manual intenta enseñar a realizar los análisis espaciales en R & Rstudio.\nLa concepción teórica y práctica del libro es inspirado por la urgente necesidad de contribuir en políticas públicas y toma de desiciones del Programa de Prevención y Control de las Arbovirosis en México, específicamente en el diseño, implementación y escalamiento de un modelo estratégico de focalización del dengue en las areas urbanas y metropolitanas de México usando análisis espaciales de las bases de datos de la vigilancia epidemiológica y entomológica alojadas en el Sistema Nacional de Vigilancia Epidemiologica (SINAVE) & Sistema Integral de Monitoreo de Vectores (SIMV), respectivamente.\nLa publicación online es inspirada por las iniciativas libres para la publicación de textos como bookdown & todas las inciciativas de software libre para el análisis de datos espaciales y no espaciales como R, RStudio, Python & Julia. El libro es de codigo abierto, asegurando que su contenido es completamente reproducible y públicamente disponible para personal de la Secretaría de Salud de México.\nLa versión online del manual es mantenida en github/fdzul & es alojada en netlify\n\nNote: El manual no ha sido publicado en físico por ninguna editorial y los autores están de acuerdo en llegar a un trato con una editorial.",
+    "text": "Welcome\nEste documento es la versión en línea del quarto book  Identificación de Focos de Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R. Es un libro diseñado para desarrollar las competencias específicas para la identificación de los escenarios epidemiológicos o los focos de transmisión persistente y los focos de transmisión activa de las arbovirosis en áreas urbanas y metropolitanas de México usando el software R & Rstudio.\nEl documento no tiene la intensión de ser una referencia teórica sobre los diferentes análisis espaciales que se abordan, por el contrario el manual intenta enseñar a realizar los análisis espaciales en R & Rstudio.\nLa concepción teórica y práctica del libro es inspirado por la urgente necesidad de contribuir en políticas públicas y toma de desiciones del Programa de Prevención y Control de las Arbovirosis en México, específicamente en el diseño, implementación y escalamiento de un modelo estratégico de focalización del dengue en las areas urbanas y metropolitanas de México usando análisis espaciales de las bases de datos de la vigilancia epidemiológica y entomológica alojadas en el Sistema Nacional de Vigilancia Epidemiologica (SINAVE) & Sistema Integral de Monitoreo de Vectores (SIMV), respectivamente.\nLa publicación online es inspirada por las iniciativas libres para la publicación de textos como bookdown & todas las inciciativas de software libre para el análisis de datos espaciales y no espaciales como R, RStudio, Python & Julia. El libro es de codigo abierto, asegurando que su contenido es completamente reproducible y públicamente disponible para personal de la Secretaría de Salud de México.\nLa versión online del manual es mantenida en github/fdzul & es alojada en netlify\nNote: El manual no ha sido publicado en físico por ninguna editorial y los autores están de acuerdo en llegar a un trato con una editorial.",
     "crumbs": [
       "**<span style=\"color:#003300;\">Welcome</span>**"
     ]
@@ -37,6 +37,26 @@
     "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
     "crumbs": [
       "References"
+    ]
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Identificación de los Focos de la Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nEl libro es alojado en https://www.netlify.com y agradecemos su soporte como open source para este tipo de iniciativas. Asi mismo, agradecemos al personal de vectores de todos los estados por su continua retroalimentación.",
+    "crumbs": [
+      "**<span style=\"color:#003300;\">Welcome</span>**"
+    ]
+  },
+  {
+    "objectID": "index.html#agradecimientos",
+    "href": "index.html#agradecimientos",
+    "title": "Identificación de los Focos de la Transmisión de las Arbovirosis & Manejo Integrado de Aedes en R",
+    "section": "Agradecimientos",
+    "text": "Agradecimientos\nEl libro es alojado en https://www.netlify.com y agradecemos su soporte como open source para este tipo de iniciativas. Asi mismo, agradecemos al personal de vectores de todos los estados por su continua retroalimentación.",
+    "crumbs": [
+      "**<span style=\"color:#003300;\">Welcome</span>**"
     ]
   }
 ]
