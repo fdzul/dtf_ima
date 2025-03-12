@@ -12,6 +12,12 @@ En la **tercera fase**, cuando se geocodifica por primera vez (casos acumulados 
 Para realizar el proceso de geocodificación descrito en los parrafos precedentes requiere que el personal de vectores
 gestione dos APIs de Google [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start?hl=es-419) y [Static Maps API](https://developers.google.com/maps/documentation/maps-static?hl=es_419). La primera API sirve para geocodificar las bases de los casos de dengue del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.
 
+
+::: {.callout-note}
+`API` es un acrónimo de "Interfaz de Programación de Aplicaciones". Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre si.
+:::
+
+
 # Geocodificación en R
 
 Los requisito básicos para la geocodificación en R son:
@@ -44,6 +50,26 @@ Proyecto de geocodificación
 
 Bajar la carpeta [**geocodificación_dengue_sinave**]() alojada en github y descomprimirla. La carpeta contiene los 32 folder para cada entidad federativa, y cada estado selecionará su carpeta correspondiente con su entidad.
 
+En el proyecto se encontraran cuatro carpetas o folders (1.data, 2.script, 3.geocoded_data, 4.RData) y el nombre del proyecto personalizado por estado. Como ejemplo se usa el proyecto del estado de Jalisco 14 (geocodificacion_dengue_sinave_edo14) para ilustrar las carpeta alojadas en el proyecto.
+
+En la carpeta 1.data se encuentran don subfolders (1.semana_actual_recientes & 2.ultima_semana_acumulado), en el primero se guardó la base del SINAVE con la fecha más reciente donde se encuentran los casos de la última semana (2025-03-10) y en el segundo folder se encuentra la base del SINAVE con fecha del 2025-03-03. 
+
+
+```{r fig.cap="Estructura del proyecto de geocodificación en R"}
+fs::dir_tree("/Users/felipedzul/Desktop/geocodificacion_dengue_sinave_edo14", 
+             recurse = 3)
+```
+
+La carpeta 2.script contiene dos folders, la 1.primera_vez y 2.segunda_vez. La primera carpeta (1.primera_vez) tiene la función de geocodificar los casos de dengue de la base del SINAVE del 1 de enero de 2025 al 3 de marzo del 2025 (casos acumulados hasta el 3 de marzo) y la segunda carpeta (2.segunda_vez) su meta es actualizar la geocodificación con los casos del 4 de marzo al 10 de marzo, de tal forma que actualiza la base de casos geocodificados hasta el 10 de marzo. En conclusión primero se corren los scripts de la carpeta 1.primera_vez y posteriormente se corren los scripts de la carpeta 2.segunda_vez, al final tendremos un archivo actualizado del 1 enero al 10 de marzo del presente año. En ambos casos los scripts se deben correr secuencialmente de acuerdo con el número de scripts.
+
+Las carpetas 3.geocoded_data y 4.RData, conforme se corran los scripts de las carpetas 1.primera_vez y 2.segunda_vez, se iran generando archivo R.Data que se usarán como input para algunos segmentos de código y como input para las cadenas de transmisión o mapas de calor.
+
+::: {.callout-tip}
+En la próxima semana (17 de marzo que es día festivo ó 18 de marzo), recuerden que tienen que bajar la base de datos del SINAVE con fecha del 17 ó 18. Guardar el archivo con extensión rar en el carpeta 1.semana_actual_reciente y descomprimirlo. El archivo con fecha 10 de marzo del 2025 se debe pasar a la carpeta 2.ultima_semana_acumulado.
+
+Este proceso tiene que iterativamente realizarse cada semana junto con la geocodificación.
+
+:::
 
 
 

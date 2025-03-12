@@ -106,8 +106,8 @@
     "objectID": "geo.html#fase-1.-cargar-base-de-sinave-extraer-el-estado",
     "href": "geo.html#fase-1.-cargar-base-de-sinave-extraer-el-estado",
     "title": "\n2  Geocodificación\n",
-    "section": "\n4.2 Fase 1. Cargar base de SINAVE & extraer el estado",
-    "text": "4.2 Fase 1. Cargar base de SINAVE & extraer el estado\n\nAbrir la carpeta\n\nAPI es un acrónimo de “Interfaz de Programación de Aplicaciones”. Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre",
+    "section": "\n4.1 Fase 1. Cargar base de SINAVE & extraer el estado",
+    "text": "4.1 Fase 1. Cargar base de SINAVE & extraer el estado\n\nAbrir la carpeta\n\nAPI es un acrónimo de “Interfaz de Programación de Aplicaciones”. Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre",
     "crumbs": [
       "Geocodificacion",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Geocodificación</span>"
