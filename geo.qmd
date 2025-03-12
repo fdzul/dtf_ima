@@ -7,27 +7,49 @@ En la **segunda fase**, el archivo csv se sube a **[RStudio](https://www.rstudio
 
 En la **tercera fase**, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.
 
+# APIs de Google
+
+Para realizar el proceso de geocodificación descrito en los parrafos precedentes requiere que el personal de vectores
+gestione dos APIs de Google [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start?hl=es-419) y [Static Maps API](https://developers.google.com/maps/documentation/maps-static?hl=es_419). La primera API sirve para geocodificar las bases de los casos de dengue del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.
 
 # Geocodificación en R
 
-Los requisitos básicos para realizar el proceso de geocodificación descrito en los parrafos precedentes requieren: 
+Los requisito básicos para la geocodificación en R son:
 
-   1. Contar con las siguientes APIs de Google
-      a) [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start?hl=es-419)
-      b) [Static Maps API](https://developers.google.com/maps/documentation/maps-static?hl=es_419)
-      
-   La primera API sirve para geocodificar las bases del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.
+   1) Tener instalado R & RStudio
+   2) Instalar los paquetes **ggmap** y **denhotspots**
+   3) Contar con su proyecto de geocodificación
    
-   2. Bajar la carpeta [**geocodificación_dengue_sinave**]() alojada en github y descomprimirla.
-   La carpeta contiene los 32 folder para cada entidad federativa, y cada estado selecionará su carpeta correspondiente con su entidad
-     
+
+Instalación de ggmap   
+```{r pkg_ggmap, warning=FALSE, message=FALSE}
+install.packages("ggmap", contriburl = "both")
+```
+
+Instalación de denhotspots
+
+```{r pkg_denhotspots,  warning=FALSE, message=FALSE}
+pak::pkg_install("fdzul/denhotspots")
+```
+En caso de que no se pueda instalar con el paquete pak, lo cual es poco probable, se puede intentar instalar con los paquetes **remotes** o **devtools**.
+
+```{r,  warning=FALSE, message=FALSE}
+remotes::install_github("fdzul/denhotspots")
+devtools::install_github("fdzul/denhotspots")
+```
+
+
+
+Proyecto de geocodificación
+
+Bajar la carpeta [**geocodificación_dengue_sinave**]() alojada en github y descomprimirla. La carpeta contiene los 32 folder para cada entidad federativa, y cada estado selecionará su carpeta correspondiente con su entidad.
+
+
+
 
 ## Fase 1. Cargar base de SINAVE & extraer el estado
 
 1. Abrir la carpeta 
 
-
-
-
-
+API es un acrónimo de "Interfaz de Programación de Aplicaciones". Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre 
 

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.39">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="author" content="Felipe Dzul-Manzanilla &amp; Fabián Correa-Morales">
-
 <title>2&nbsp; Geocodificación – Identificación de los Focos de la Transmisión de las Arbovirosis &amp; Manejo Integrado de Aedes en R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -21,8 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -42,8 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-626149efe8f5d16e1d391ba177679bf0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -70,16 +99,11 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -90,13 +114,9 @@ ul.task-list li input[type="checkbox"] {
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Identificación de los Focos de la Transmisión de las Arbovirosis &amp; Manejo Integrado de Aedes en R</a> 
         <div class="sidebar-tools-main">
@@ -116,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><strong><span style="color:#003300;">Welcome</span></strong></span></a>
@@ -142,8 +162,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./bases-sinave.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bases del SINAVE</span></span></a>
@@ -156,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./focos_activos.html" class="sidebar-item-text sidebar-link">
@@ -165,8 +185,8 @@ ul.task-list li input[type="checkbox"] {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cadenas_transmision.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Cadenas de Transmisión</span></span></a>
@@ -179,30 +199,30 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#geocodificación-en-r" id="toc-geocodificación-en-r" class="nav-link active" data-scroll-target="#geocodificación-en-r"><span class="header-section-number">3</span> Geocodificación en R</a>
+<li><a href="#apis-de-google" id="toc-apis-de-google" class="nav-link active" data-scroll-target="#apis-de-google"><span class="header-section-number">3</span> APIs de Google</a></li>
+  <li>
+<a href="#geocodificaci%C3%B3n-en-r" id="toc-geocodificación-en-r" class="nav-link" data-scroll-target="#geocodificaci%C3%B3n-en-r"><span class="header-section-number">4</span> Geocodificación en R</a>
   <ul class="collapse">
-  <li><a href="#fase-1.-cargar-base-de-sinave-extraer-el-estado" id="toc-fase-1.-cargar-base-de-sinave-extraer-el-estado" class="nav-link" data-scroll-target="#fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">3.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</a></li>
-  </ul></li>
+<li><a href="#obtenci%C3%B3n-de-apis-de-google" id="toc-obtención-de-apis-de-google" class="nav-link" data-scroll-target="#obtenci%C3%B3n-de-apis-de-google"><span class="header-section-number">4.1</span> Obtención de APIs de Google</a></li>
+  <li><a href="#fase-1.-cargar-base-de-sinave-extraer-el-estado" id="toc-fase-1.-cargar-base-de-sinave-extraer-el-estado" class="nav-link" data-scroll-target="#fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">4.2</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./geocodificacion.html">Geocodificacion</a></li><li class="breadcrumb-item"><a href="./geo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Geocodificación</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Geocodificación</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./geocodificacion.html">Geocodificacion</a></li><li class="breadcrumb-item"><a href="./geo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Geocodificación</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Geocodificación</span>
+</h1>
 </div>
 
 
@@ -216,32 +236,47 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
-
-
-<p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..</p>
+</header><p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..</p>
 <p>En la <strong>segunda fase</strong>, el archivo csv se sube a <strong><a href="https://www.rstudio.com/">RStudio</a></strong>, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.</p>
 <p>En la <strong>tercera fase</strong>, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.</p>
-<section id="geocodificación-en-r" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Geocodificación en R</h1>
-<p>Los requisitos básicos para realizar el proceso de geocodificación descrito en los parrafos precedentes requieren:</p>
+<section id="apis-de-google" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> APIs de Google</h1>
+<p>Para realizar el proceso de geocodificación descrito en los parrafos precedentes requiere que el personal de vectores gestione dos APIs de Google <a href="https://developers.google.com/maps/documentation/geocoding/start?hl=es-419">Geocoding API</a> y <a href="https://developers.google.com/maps/documentation/maps-static?hl=es_419">Static Maps API</a>. La primera API sirve para geocodificar las bases de los casos de dengue del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.</p>
+</section><section id="geocodificación-en-r" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Geocodificación en R</h1>
+<p>Los requisito básicos para la geocodificación en R son:</p>
 <ol type="1">
-<li>Contar con las siguientes APIs de Google
-<ol type="a">
-<li><a href="https://developers.google.com/maps/documentation/geocoding/start?hl=es-419">Geocoding API</a></li>
-<li><a href="https://developers.google.com/maps/documentation/maps-static?hl=es_419">Static Maps API</a></li>
-</ol></li>
+<li>Tener instalado R &amp; RStudio</li>
+<li>Instalar los paquetes <strong>ggmap</strong> y <strong>denhotspots</strong>
+</li>
+<li>Contar con su proyecto de geocodificación</li>
 </ol>
-<p>La primera sirve para geocodificar las bases del sinave y la segunda sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.</p>
-<section id="fase-1.-cargar-base-de-sinave-extraer-el-estado" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">3.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</h2>
+<p>Instalación de ggmap</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"ggmap"</span>, contriburl <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Instalación de denhotspots</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html">pkg_install</a></span><span class="op">(</span><span class="st">"fdzul/denhotspots"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En caso de que no se pueda instalar con el paquete pak, lo cual es poco probable, se puede intentar instalar con los paquetes <strong>remotes</strong> o <strong>devtools</strong>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"fdzul/denhotspots"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"fdzul/denhotspots"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Proyecto de geocodificación</p>
+<p>Bajar la carpeta <a href=""><strong>geocodificación_dengue_sinave</strong></a> alojada en github y descomprimirla. La carpeta contiene los 32 folder para cada entidad federativa, y cada estado selecionará su carpeta correspondiente con su entidad.</p>
+<section id="obtención-de-apis-de-google" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="obtención-de-apis-de-google">
+<span class="header-section-number">4.1</span> Obtención de APIs de Google</h2>
+</section><section id="fase-1.-cargar-base-de-sinave-extraer-el-estado" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="fase-1.-cargar-base-de-sinave-extraer-el-estado">
+<span class="header-section-number">4.2</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</h2>
+<ol type="1">
+<li>Abrir la carpeta</li>
+</ol>
+<p>API es un acrónimo de “Interfaz de Programación de Aplicaciones”. Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre</p>
 
 
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -657,9 +692,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./bases-sinave.html" class="pagination-link" aria-label="Bases del SINAVE">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Bases del SINAVE</span></span>
       </a>          
@@ -671,8 +704,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
 <p>Focos de Transmisión de las Arbovirosis &amp; Manejo Integrado de Aedes”.</p>
 </div>   
@@ -684,8 +716,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

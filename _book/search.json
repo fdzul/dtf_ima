@@ -94,9 +94,9 @@
   {
     "objectID": "geo.html",
     "href": "geo.html",
-    "title": "2  Geocodificación",
+    "title": "\n2  Geocodificación\n",
     "section": "",
-    "text": "3 Geocodificación en R\nLa geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de Geocoding API de Google, con la función ggmap::geocode del paquete ggmap & la funcion denhotspots::geocoden() del paquete denhotspots. El proceso de geocodificación se realiza en tres fases. En la primera fase se sube la base de datos de los casos del SINAVE a RStudio y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..\nEn la segunda fase, el archivo csv se sube a RStudio, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.\nEn la tercera fase, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.\nLos requisitos básicos para realizar el proceso de geocodificación descrito en los parrafos precedentes requieren:\nLa primera sirve para geocodificar las bases del sinave y la segunda sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.",
+    "text": "3 APIs de Google\nLa geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de Geocoding API de Google, con la función ggmap::geocode del paquete ggmap & la funcion denhotspots::geocoden() del paquete denhotspots. El proceso de geocodificación se realiza en tres fases. En la primera fase se sube la base de datos de los casos del SINAVE a RStudio y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..\nEn la segunda fase, el archivo csv se sube a RStudio, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.\nEn la tercera fase, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.\nPara realizar el proceso de geocodificación descrito en los parrafos precedentes requiere que el personal de vectores gestione dos APIs de Google Geocoding API y Static Maps API. La primera API sirve para geocodificar las bases de los casos de dengue del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.",
     "crumbs": [
       "Geocodificacion",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Geocodificación</span>"
@@ -105,9 +105,20 @@
   {
     "objectID": "geo.html#fase-1.-cargar-base-de-sinave-extraer-el-estado",
     "href": "geo.html#fase-1.-cargar-base-de-sinave-extraer-el-estado",
-    "title": "2  Geocodificación",
-    "section": "3.1 Fase 1. Cargar base de SINAVE & extraer el estado",
-    "text": "3.1 Fase 1. Cargar base de SINAVE & extraer el estado",
+    "title": "\n2  Geocodificación\n",
+    "section": "\n4.2 Fase 1. Cargar base de SINAVE & extraer el estado",
+    "text": "4.2 Fase 1. Cargar base de SINAVE & extraer el estado\n\nAbrir la carpeta\n\nAPI es un acrónimo de “Interfaz de Programación de Aplicaciones”. Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre",
+    "crumbs": [
+      "Geocodificacion",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Geocodificación</span>"
+    ]
+  },
+  {
+    "objectID": "geo.html#obtención-de-apis-de-google",
+    "href": "geo.html#obtención-de-apis-de-google",
+    "title": "\n2  Geocodificación\n",
+    "section": "\n4.1 Obtención de APIs de Google",
+    "text": "4.1 Obtención de APIs de Google",
     "crumbs": [
       "Geocodificacion",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Geocodificación</span>"
