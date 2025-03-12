@@ -75,9 +75,12 @@ Este proceso tiene que iterativamente realizarse cada semana junto con la geocod
 
 ## Fase 1. Cargar base de SINAVE & extraer el estado
 
+Abrimos la carpeta del la proyecto (geocodificacion_dengue_sinave_edo14) dandole doble click y acontinuación abrimos el proyecto en RStudio al darle doble click al archivo del mismo nombre del proyecto con extensión `R.proj` (geocodificacion_dengue_sinave_edo14.Rproj). Este archivo los identificamos debido a que al al principio tiene un icono característico de RStudi0 ![](https://user-images.githubusercontent.com/12725868/198627122-a89da13b-9131-465f-b1e9-b188b8d0d386.png)
+
 
 ```{r}
 
 ```
 
 
+`API`
