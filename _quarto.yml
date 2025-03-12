@@ -12,8 +12,8 @@ book:
       This book was built with <a href="https://quarto.org/">Quarto</a>.
   cover-image: images/cover.jpg
   favicon: images/cover.jpg
-  site-url: https://r4ds.hadley.nz/
-  repo-url: https://github.com/hadley/r4ds/
+  site-url: https://flourishing-jelly-b34c35.netlify.app
+  repo-url: https://github.com/fdzul/dtf_ima/
   repo-branch: main
   repo-actions: [edit, issue]
 

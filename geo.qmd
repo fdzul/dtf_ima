@@ -44,8 +44,6 @@ remotes::install_github("fdzul/denhotspots")
 devtools::install_github("fdzul/denhotspots")
 ```
 
-
-
 Proyecto de geocodificación
 
 Bajar la carpeta [**geocodificación_dengue_sinave**]() alojada en github y descomprimirla. La carpeta contiene los 32 folder para cada entidad federativa, y cada estado selecionará su carpeta correspondiente con su entidad.
@@ -62,6 +60,8 @@ fs::dir_tree("/Users/felipedzul/Desktop/geocodificacion_dengue_sinave_edo14",
 
 La carpeta 2.script contiene dos folders, la 1.primera_vez y 2.segunda_vez. La primera carpeta (1.primera_vez) tiene la función de geocodificar los casos de dengue de la base del SINAVE del 1 de enero de 2025 al 3 de marzo del 2025 (casos acumulados hasta el 3 de marzo) y la segunda carpeta (2.segunda_vez) su meta es actualizar la geocodificación con los casos del 4 de marzo al 10 de marzo, de tal forma que actualiza la base de casos geocodificados hasta el 10 de marzo. En conclusión primero se corren los scripts de la carpeta 1.primera_vez y posteriormente se corren los scripts de la carpeta 2.segunda_vez, al final tendremos un archivo actualizado del 1 enero al 10 de marzo del presente año. En ambos casos los scripts se deben correr secuencialmente de acuerdo con el número de scripts.
 
+![](images/calendario_marzo.png)
+
 Las carpetas 3.geocoded_data y 4.RData, conforme se corran los scripts de las carpetas 1.primera_vez y 2.segunda_vez, se iran generando archivo R.Data que se usarán como input para algunos segmentos de código y como input para las cadenas de transmisión o mapas de calor.
 
 ::: {.callout-tip}
@@ -75,7 +75,9 @@ Este proceso tiene que iterativamente realizarse cada semana junto con la geocod
 
 ## Fase 1. Cargar base de SINAVE & extraer el estado
 
-1. Abrir la carpeta 
 
-API es un acrónimo de "Interfaz de Programación de Aplicaciones". Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre 
+```{r}
+
+```
+
 

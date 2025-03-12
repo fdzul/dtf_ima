@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Identificación de los Focos de la Transmisión de las Arbovirosis &amp; Manejo Integrado de Aedes en R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r4ds/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/fdzul/dtf_ima/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#fase-1.-cargar-base-de-sinave-extraer-el-estado" id="toc-fase-1.-cargar-base-de-sinave-extraer-el-estado" class="nav-link" data-scroll-target="#fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">4.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/fdzul/dtf_ima/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/fdzul/dtf_ima/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./geocodificacion.html">Geocodificacion</a></li><li class="breadcrumb-item"><a href="./geo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Geocodificación</span></a></li></ol></nav><div class="quarto-title">
@@ -304,6 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>La carpeta 2.script contiene dos folders, la 1.primera_vez y 2.segunda_vez. La primera carpeta (1.primera_vez) tiene la función de geocodificar los casos de dengue de la base del SINAVE del 1 de enero de 2025 al 3 de marzo del 2025 (casos acumulados hasta el 3 de marzo) y la segunda carpeta (2.segunda_vez) su meta es actualizar la geocodificación con los casos del 4 de marzo al 10 de marzo, de tal forma que actualiza la base de casos geocodificados hasta el 10 de marzo. En conclusión primero se corren los scripts de la carpeta 1.primera_vez y posteriormente se corren los scripts de la carpeta 2.segunda_vez, al final tendremos un archivo actualizado del 1 enero al 10 de marzo del presente año. En ambos casos los scripts se deben correr secuencialmente de acuerdo con el número de scripts.</p>
+<p><img src="images/calendario_marzo.png" class="img-fluid"></p>
 <p>Las carpetas 3.geocoded_data y 4.RData, conforme se corran los scripts de las carpetas 1.primera_vez y 2.segunda_vez, se iran generando archivo R.Data que se usarán como input para algunos segmentos de código y como input para las cadenas de transmisión o mapas de calor.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -318,10 +319,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="fase-1.-cargar-base-de-sinave-extraer-el-estado" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="fase-1.-cargar-base-de-sinave-extraer-el-estado">
 <span class="header-section-number">4.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</h2>
-<ol type="1">
-<li>Abrir la carpeta</li>
-</ol>
-<p>API es un acrónimo de “Interfaz de Programación de Aplicaciones”. Es un conjunto de reglas y protocolos que permiten que las aplicaciones de software se comuniquen entre</p>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -414,7 +411,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/r4ds\.hadley\.nz\/");
+      var filterRegex = new RegExp("https:\/\/flourishing-jelly-b34c35\.netlify\.app");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -758,7 +755,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/fdzul/dtf_ima/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/fdzul/dtf_ima/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
