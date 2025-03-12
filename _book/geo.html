@@ -185,8 +185,17 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#geocodificación-en-r" id="toc-geocodificación-en-r" class="nav-link active" data-scroll-target="#geocodificación-en-r"><span class="header-section-number">3</span> Geocodificación en R</a>
+  <ul class="collapse">
+  <li><a href="#fase-1.-cargar-base-de-sinave-extraer-el-estado" id="toc-fase-1.-cargar-base-de-sinave-extraer-el-estado" class="nav-link" data-scroll-target="#fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">3.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -210,10 +219,26 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés de la semana pasada y la semana actual. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual. La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificat todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11.</p>
+<p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..</p>
 <p>En la <strong>segunda fase</strong>, el archivo csv se sube a <strong><a href="https://www.rstudio.com/">RStudio</a></strong>, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.</p>
+<p>En la <strong>tercera fase</strong>, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.</p>
+<section id="geocodificación-en-r" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Geocodificación en R</h1>
+<p>Los requisitos básicos para realizar el proceso de geocodificación descrito en los parrafos precedentes requieren:</p>
+<ol type="1">
+<li>Contar con las siguientes APIs de Google
+<ol type="a">
+<li><a href="https://developers.google.com/maps/documentation/geocoding/start?hl=es-419">Geocoding API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/maps-static?hl=es_419">Static Maps API</a></li>
+</ol></li>
+</ol>
+<p>La primera sirve para geocodificar las bases del sinave y la segunda sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.</p>
+<section id="fase-1.-cargar-base-de-sinave-extraer-el-estado" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="fase-1.-cargar-base-de-sinave-extraer-el-estado"><span class="header-section-number">3.1</span> Fase 1. Cargar base de SINAVE &amp; extraer el estado</h2>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -653,7 +678,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hadley/r4ds/edit/main/geo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r4ds/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
