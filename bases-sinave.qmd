@@ -1,44 +1,45 @@
-
 # Bases del SINAVE
 
-## **<span style="color:#003300;">Bajar las bases de datos del [SINAVE](https://www.sinave.gob.mx/).</span>**
+En el módulo de Enfermedades Transmitidas por Vector (ETVs) del Sistema Nacional de Vigilancia Epidemiológica ([SINAVE](https://www.sinave.gob.mx)) de la Secretaría de Salud Federal, se almacenan 11 bases de datos de diferentes ETVs (RICKETT, CHAGAS, FIEBRE_NILO, LEISHMAN, ENCEFALITIS, FIEBREMAYARO, FIEBREAMARILLA, PALUDISMO, ZIKA, CHINKUNGUNYA, & DENGUE). La frecuencia de actualización de las bases es diaria, la resolución espacial es a nivel de domicilio del paciente y la resolución temporal es diaria. Las bases incluyen variables relacionadas con el diagnóstico clínico, datos de laboratorio, y datos personales. El acceso a las bases alojadas en el modulo de ETVS del (SINAVE) son de uso exclusivo de la comunidad SINAVE del Sector Salud y los responsables de vectores en los estados (jefes de departamento, coordinadores de vectores y lideres de los programa de prevención y control de arbovirosis) tiene un usuario y contraseña para acceder las bases de datos de dengue y las otras etvs.
 
-### **<span style="color:#660033;">Escribir en el buscador de preferencia la página del sinave (https://www.sinave.gob.mx/).</span>**
+El proceso para acceder a las bases de datos de dengue se realiza en 8 pasos que acontinuación se describen.
+
+![](images/sinave.jpeg)
 
 
+## [**Bajar las bases de datos del [SINAVE](https://www.sinave.gob.mx/).**]{style="color:#003300;"}
 
-### **<span style="color:#660033;">En la página del sinave buscar y darle click al boton Enfermedades Transmitidas por Vector.</span>**
+1. [**Escribir en el buscador de preferencia la página del sinave (https://www.sinave.gob.mx/).**]{style="color:#660033;"}
 
+2. [**En la página del sinave buscar y darle click al boton Enfermedades Transmitidas por Vector.**]{style="color:#660033;"}
 
 ![](https://www.sinave.gob.mx/imagenes4t/imagen9_.png)
 
-
+```{=html}
 <img src="https://www.sinave.gob.mx/imagenes4t/imagen1.png" alt="Kitten"
-	title="A cute kitten" width="150" height="100" />
+    title="A cute kitten" width="150" height="100" />
+```
 
-### **<span style="color:#660033;">Ingresar el nombre del usurio y contraseña.</span>** 
+3. [**Ingresar el nombre del usurio y contraseña.**]{style="color:#660033;"}
 
 ![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/user3.jpg)
 
-### <span style="color:#660033;">Ingresar a la sección de **Reportes**.</span> 
+4. [Ingresar a la sección de **Reportes**.]{style="color:#660033;"}
 
-![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_reg_1.jpg)
-![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_seg_1.jpg)
-![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_rep_1.jpg)
-![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_sal_1.jpg)
+![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_reg_1.jpg) ![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_seg_1.jpg) ![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_rep_1.jpg) ![](https://vectores.sinave.gob.mx/Imagenes/ImagenesComunes/me_sal_1.jpg)
 
+5. [Darle click a **Descarga de Datos Vectores**]{style="color:#660033;"}
 
-### <span style="color:#660033;">Darle click a **Descarga de Datos Vectores**</span> 
+<td align="center">
 
-<td align="center"><input type="submit" name="ctl00$ContentPlaceHolder1$Button3" value="Descarga de Datos Vectores" onclick="javascript:Reporte3();" id="ctl00_ContentPlaceHolder1_Button3" style="color:White;background-color:#666666;border-color:#000066;font-weight:bold;" />
+<input type="submit" name="ctl00$ContentPlaceHolder1$Button3" value="Descarga de Datos Vectores" onclick="javascript:Reporte3();" id="ctl00_ContentPlaceHolder1_Button3" style="color:White;background-color:#666666;border-color:#000066;font-weight:bold;" />
 
-### **<span style="color:#660033;">Bajar la base de datos de la última fecha de la enfermedad de interés.</span>** 
+6. [**Bajar la base de datos de la última fecha de la enfermedad de interés.**]{style="color:#660033;"}
 
 ![](images/descarga_sinave.png)
 
+7. [**Guardar la base en la carpeta de interes.**]{style="color:#660033;"}
 
-### **<span style="color:#660033;">Guardar la base en la carpeta de interes.</span>** 
-
-### **<span style="color:#660033;">Extraer el txt del archivo con extensión RAR.</span>** 
+8. [**Extraer el txt del archivo con extensión RAR.**]{style="color:#660033;"}
 
 Para MACOS se puede usar el programa [The Unarchiver](https://theunarchiver.com/) y para WINOS pueden usar [7-Zip](https://www.7-zip.org). Ambos son libres.
