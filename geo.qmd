@@ -120,7 +120,6 @@ Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset
 
 Para subir la bases de casos de dengue del SINAVE primero se específica la ruta donde se bajo y descomprimió el archivo txt (DENGUE2_.txt), segundo se define la resolución espacial a la cual se va trabajar (lacional, estatal o municipal). En nuestro ejemplo del proyecto de geocodificación de Jalisco se trabajará a nivel estatal (spatial_resolution = "state"). Tercero se establece el estado (Recordar que el SINAVE usa mayusculas en la base) con el que se va trabajar. En nuestro ejemplo es el estado de Jalisco (des_edo_res = "JALISCO"). Por último, se define el Estatus del Caso (status_caso) con el que se va trabajar, esta variable en la base del SINAVE tiene tres valores 1 para indicar los casos probables, 2 para indicar los casos confirmados, y 3 para indicar los casos descartados. En la última reunión nacional de vectores realizada en Oaxaca del 23 de febrero al 1 de marzo, se acordo trabajar con casos probables (status_caso = 1) y confirmados (status_caso = 2).
 
-
 ```{r}
 # Step 1. Load the accumulated dengue dataset ####
 # Paso 1. Cargar la base de datos de dengue acumulados ####
@@ -132,14 +131,77 @@ z <- denhotspots::read_dengue_dataset(path = "1.data/2.ultima_semana_acumulado/D
 ```
 
 
+##### Guardar el archivo
+
+Podemos verificar si se subio la base a travéz de observar el ambiente de trabajo y notar si se subio la base como un objeto *z*. La base se puese explorar a traves de varias funciones y paquetes como str, glimse, skim, gt_plt_summary.
+
+base R (str, head, tail, dim)
+
+str
+```{r, warning=FALSE, message=FALSE}
+str(z)
+```
+
+head
+```{r, warning=FALSE, message=FALSE}
+head(z)
+```
+
+tail
+```{r, warning=FALSE, message=FALSE}
+tail(z)
+```
+```{r, warning=FALSE, message=FALSE}
+dim(z)
+```
+
+dplyr::glimse
+
+```{r, warning=FALSE, message=FALSE}
+dplyr::glimpse(z)
+```
+
+skimr
+```{r, warning=FALSE, message=FALSE}
+skimr::skim(z)
+```
+
+
+gt_plt_summary
+```{r, warning=FALSE, message=FALSE}
+gtExtras::gt_plt_summary(z |> dplyr::select(FOL_ID, VEC_ID, CVE_LOC_RES, DES_DIAG_PROBABLE))
+```
+
+
 #### Guardar el archivo
+
+La base de datos de dengue se guarda en un archivo con extensión csv nombrandolo con el nombre del estado y la fecha del archivo cuando se bajo la base del SINAVE.
+
+##### Código
+```{r}
+write.csv(z, 
+          file = "dengue_edo14_2025_03_03.csv")
+```
+
 
 ### Fase 2
 
-```{r}
+El segundo script (2.0.geocodificación_dengue_dataset.R) de la carpeta 1.primera_vez corresponde a la segunda fase de la geocodificación. La segunda fase se divide en siete pasos.
 
-```
 
+#### Paso 1. Nombre de la base
+
+#### Paso 2. Direcciones a gecodificar
+
+#### Paso 3. Manipulación de las direcciones
+
+#### Paso 4. Geocodificación
+
+#### Paso 5. Cargar la base geocodificada
+
+#### Paso 6. Cargar la base del SINAVE
+
+#### Paso 7. Unir ambas bases y guardarla
 
 ### Fase 3
 
