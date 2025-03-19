@@ -1,11 +1,11 @@
 
 # Geocodificación
 
-La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de [Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview) de Google, con la función <span style="color:RoyalBlue">***ggmap::geocode***</span> del paquete [ggmap](https://github.com/dkahle/ggmap) & la funcion <span style="color:RoyalBlue">***denhotspots::geocoden()***</span> del paquete [denhotspots](https://fdzul.github.io/denhotspots/index.html). El proceso de geocodificación se realiza en tres fases. En la **primera fase** se sube la base de datos de los casos del SINAVE a **[RStudio](https://www.rstudio.com/)** y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..
+La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de [Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview) de Google, con la función <span style="color:RoyalBlue">***ggmap::geocode***</span> del paquete [ggmap](https://github.com/dkahle/ggmap) & la funcion <span style="color:RoyalBlue">***denhotspots::geocoden()***</span> del paquete [denhotspots](https://fdzul.github.io/denhotspots/index.html). El proceso de geocodificación se realiza en tres fases. En la **primera fase** se sube la base de datos de los casos del SINAVE a **[RStudio](https://www.rstudio.com/)** y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es más simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..
  
 En la **segunda fase**, el archivo csv se sube a **[RStudio](https://www.rstudio.com/)**, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.
 
-En la **tercera fase**, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.
+En la **tercera fase**, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describen los procesos para poder geocodificar en R.
 
 # APIs de Google
 
@@ -103,7 +103,7 @@ guardar el archivo con extension **csv**
 
 #### Cargar la base del SINAVE
 
-Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset del paquete denhotspots incluido en el dengue verse. La función esta especializada en cargar las bases del SINAVE y cuenta con 4 argumentos (path, spatial resolution, des_edo_res y status_caso).
+Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset del paquete denhotspots incluido en el dengueverse. La función esta especializada en cargar las bases del SINAVE y cuenta con 4 argumentos (path, spatial resolution, des_edo_res y status_caso).
 
 
 | Argumento        | Definición        | Tipo de Dato | Valores |
@@ -111,6 +111,7 @@ Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset
 |path              |ruta del archivo   | texto        | ver código|
 |spatial_resolution|Resolucion Espacial| texto        |"country" ,"state" o "municipality"|
 |des_edo_res       |Estado de Reporte  | texto.       | "JALISCO" |
+|des_mpo_res       |Municipio de Reporte  | texto     | "JALISCO" |
 |status_caso       |Estatus del Caso   | númerico     |1, 2 ó c(1,2)|
 
 : Argumentos de la función *read_dengue_dataset*
@@ -118,7 +119,7 @@ Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset
 
 ##### Código
 
-Para subir la bases de casos de dengue del SINAVE primero se específica la ruta donde se bajo y descomprimió el archivo txt (DENGUE2_.txt), segundo se define la resolución espacial a la cual se va trabajar (lacional, estatal o municipal). En nuestro ejemplo del proyecto de geocodificación de Jalisco se trabajará a nivel estatal (spatial_resolution = "state"). Tercero se establece el estado (Recordar que el SINAVE usa mayusculas en la base) con el que se va trabajar. En nuestro ejemplo es el estado de Jalisco (des_edo_res = "JALISCO"). Por último, se define el Estatus del Caso (status_caso) con el que se va trabajar, esta variable en la base del SINAVE tiene tres valores 1 para indicar los casos probables, 2 para indicar los casos confirmados, y 3 para indicar los casos descartados. En la última reunión nacional de vectores realizada en Oaxaca del 23 de febrero al 1 de marzo, se acordo trabajar con casos probables (status_caso = 1) y confirmados (status_caso = 2).
+Para subir la bases de casos de dengue del SINAVE primero se específica la ruta donde se bajo y descomprimió el archivo txt (DENGUE2_.txt), segundo se define la resolución espacial a la cual se va trabajar (nacional, estatal o municipal). En nuestro ejemplo del proyecto de geocodificación de Jalisco se trabajará a nivel estatal (spatial_resolution = "state"). Tercero se establece el estado (Recordar que el SINAVE usa mayusculas en la base) con el que se va trabajar. En nuestro ejemplo es el estado de Jalisco (des_edo_res = "JALISCO"). Por último, se define el Estatus del Caso (status_caso) con el que se va trabajar, esta variable en la base del SINAVE tiene tres valores 1 para indicar los casos probables, 2 para indicar los casos confirmados, y 3 para indicar los casos descartados. En la última reunión nacional de vectores realizada en Oaxaca del 23 de febrero al 1 de marzo, se acordo trabajar con casos probables (status_caso = 1) y confirmados (status_caso = 2).
 
 ```{r}
 # Step 1. Load the accumulated dengue dataset ####
@@ -131,9 +132,34 @@ z <- denhotspots::read_dengue_dataset(path = "1.data/2.ultima_semana_acumulado/D
 ```
 
 
+::: {.callout-tip}
+Cuando el argumento spatial_resolution es country, el argumento des_edo_res es NULL (NULO)
+o se omite.
+```{r}
+path_dengue <- "1.data/2.ultima_semana_acumulado/DENGUE2_.txt"
+x1 <- denhotspots::read_dengue_dataset(path = path_dengue,
+                                       spatial_resolution = "country",
+                                       status_caso = c(1, 2))
+```
+
+Cuando el argumento spatial_resolution es country, es municipality, se tiene que definir los argumentos des_edo_res y des_mpo_res.
+
+```{r}
+path_dengue <- "1.data/2.ultima_semana_acumulado/DENGUE2_.txt"
+x2 <- denhotspots::read_dengue_dataset(path = path_dengue,
+                                       spatial_resolution = "municipality",
+                                       des_edo_res = "GUERRERO",
+                                       des_mpo_res = "ACAPULCO DE JUAREZ",
+                                      status_caso = c(1, 2))
+```
+
+
+
+:::
+
 ##### Guardar el archivo
 
-Podemos verificar si se subio la base a travéz de observar el ambiente de trabajo y notar si se subio la base como un objeto *z*. La base se puese explorar a traves de varias funciones y paquetes como str, glimse, skim, gt_plt_summary.
+Podemos verificar si se subio la base a través de observar el ambiente de trabajo y notar si se subió la base como un objeto *z*. La base se puese explorar a través de varias funciones y paquetes como str, glimse, skim, gt_plt_summary.
 
 base R (str, head, tail, dim)
 
@@ -191,9 +217,64 @@ El segundo script (2.0.geocodificación_dengue_dataset.R) de la carpeta 1.prime
 
 #### Paso 1. Nombre de la base
 
+En este paso recuperamos el nombre del archivo como lo guardamos en el fase 1, paso 2 y lo asignamos a un objeto llamado infile
+
+```{r}
+infile <- "dengue_edo14_2025_03_03"
+```
+
 #### Paso 2. Direcciones a gecodificar
 
+En el paso 2. se extrae el vectores de direcciones de los domicilios de los casos probables y confirmados con la finalidad de geocodificarlos. La función que realiza esta tarea es data_geocoden del paquete denhotspots y la función cuenta con tres argumentos.
+
+
+| Argumento | Definición        | Tipo de Dato | Valores |
+|-----------|------|------|------|
+| infile    | Nombre de la base dengue guardado como csv    | texto    | infile|
+| data      | Es un valor logico para definir si regresa la base completa (TRUE) o el vector de direcciones(F)    | Lógico    | TRUE o FALSE|
+| sinave_new| Es un valor lógico para definir la base, si es TRUE regres una base con estructura del 2016 al año en curso, de lo contrario regresa una base del 2008-2015   | Lógico    | TRUE o FALSE|
+
+: Argumentos de la función **data_geocoden** {.striped .hover}
+
+
+##### Código
+```{r}
+addresses <- denhotspots::data_geocoden(infile = infile,
+                                        data = FALSE,
+                                        sinave_new = TRUE)
+```
+
+```{r}
+head(addresses)
+```
+
+
 #### Paso 3. Manipulación de las direcciones
+
+Este paso es unicamente necesario cuando el proceso de geocodificación de detenga por un error en los elementos que comforman el vector de direcciones. Por ejemplo si el vector de direcciones es la siguiente "Avenida Reforma 36, CENTRO  CENTRO, 62744 CUAUTLA MOR, Morelos, Mexico", el elemento ("CENTRO  CENTRO,"), puede causar un error debido a que se repite la colonia CENTRO y también esta de más la palabra MOR. 
+Para corregir el error primero entramos usamos la función str_replace_all del paquete stringr o lo realizamos manual
+
+
+##### Código
+
+```{r}
+addresses <- stringr::str_replace_all(addresses,
+                                      pattern = "CENTRO  CENTRO,",
+                                      replacement = " CENTRO,")
+
+
+```
+
+```{r}
+addresses <- stringr::str_replace_all(addresses,
+                                      pattern = "CUAUTLA MOR,",
+                                      replacement = " CUAUTLA,")
+```
+
+Manual
+```{r}
+addresses[5] <- "Avenida Reforma 36, CENTRO, 62744 CUAUTLA, Morelos, Mexico"
+```
 
 #### Paso 4. Geocodificación
 

@@ -243,9 +243,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es més simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..</p>
+</header><p>La geocodificación es el proceso de transformar las direcciones físicas de los domicilios a coordenadas geográficas (latitud y longitud). La geocodificación se realiza a través del servicio de <a href="https://developers.google.com/maps/documentation/geocoding/overview">Geocoding API</a> de Google, con la función <span style="color:RoyalBlue"><strong><em>ggmap::geocode</em></strong></span> del paquete <a href="https://github.com/dkahle/ggmap">ggmap</a> &amp; la funcion <span style="color:RoyalBlue"><strong><em>denhotspots::geocoden()</em></strong></span> del paquete <a href="https://fdzul.github.io/denhotspots/index.html">denhotspots</a>. El proceso de geocodificación se realiza en tres fases. En la <strong>primera fase</strong> se sube la base de datos de los casos del SINAVE a <strong><a href="https://www.rstudio.com/">RStudio</a></strong> y se extrae la información del país/estado/municipio de interés. Si la geocodificación se realiza la primera vez, el proceso es más simple que la segunda vez. Dado que la frecuencia de la geocodificación es semanal y las bases de dengue son bases de datos acumulados, se requiere extraer la base de la semana actual de los casos no geocodificados (casos nuevos, casos de la presente semana) a través de realizar la diferencia entre la semana pasada (casos acumulados geocodificados, asumiendo que se geocodificó desde el primero de enero hasta la semana pasada) y la semana actual (geocodificación por segunda vez). La idea es geocodificar solo los casos que salieron la presente semana y no volver a geocodificar todas las semanas acumuladas incluida la semana actual. Finalmente el archivo se guarda con extensión csv y con el nombre del estado y la fecha, por ejemplo dengue_aguascalientes_2025_03_11 ó dengue_edo01_2025_03_11..</p>
 <p>En la <strong>segunda fase</strong>, el archivo csv se sube a <strong><a href="https://www.rstudio.com/">RStudio</a></strong>, se crea un vector de direcciones, se realiza manipulación del vector de direcciones si se requiere (por ejemplo, se sustituye # por NUM o NUMERO), se geocodifica y se guarda en archivo temporal, une la base de coordenadas y la base del sinave, finalmente se guarda en un archivo RData.</p>
-<p>En la <strong>tercera fase</strong>, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describe el procesos para poder geocodificar en R.</p>
+<p>En la <strong>tercera fase</strong>, cuando se geocodifica por primera vez (casos acumulados del 1 de enero al 3 marzo, el archivo resultado de la segunda fase, se sube y se guarda. Pero cuando se geocodifica la segunda ves se requiere eliminar los casos descartados y unir la base acumulada (1 enero al 3 marzo) con la base de la ultima semana (10 marzo). Acontinuación se describen los procesos para poder geocodificar en R.</p>
 <section id="apis-de-google" class="level1" data-number="3"><h1 data-number="3">
 <span class="header-section-number">3</span> APIs de Google</h1>
 <p>Para realizar el proceso de geocodificación descrito en los parrafos precedentes requiere que el personal de vectores gestione dos APIs de Google <a href="https://developers.google.com/maps/documentation/geocoding/start?hl=es-419">Geocoding API</a> y <a href="https://developers.google.com/maps/documentation/maps-static?hl=es_419">Static Maps API</a>. La primera API sirve para geocodificar las bases de los casos de dengue del sinave y la segunda API sirve para extraer los mapas satelitales para la visualización de las cadenas de transmisión y los mapas de calor.</p>
@@ -367,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>El primer script (1.0.cargar_la_base_datos_dengue_primera_vez.R) de la carpeta <code>1.primera_vez</code> corresponde a la primera fase de la geocodificación. La primera fase se divide en dos pasos 1) cargar la base del SINAVE &amp; extraer la información y 2) guardar el archivo con extension <strong>csv</strong></p>
 <section id="cargar-la-base-del-sinave" class="level4" data-number="4.2.1.1"><h4 data-number="4.2.1.1" class="anchored" data-anchor-id="cargar-la-base-del-sinave">
 <span class="header-section-number">4.2.1.1</span> Cargar la base del SINAVE</h4>
-<p>Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset del paquete denhotspots incluido en el dengue verse. La función esta especializada en cargar las bases del SINAVE y cuenta con 4 argumentos (path, spatial resolution, des_edo_res y status_caso).</p>
+<p>Para cargar la base del SINAVE en Rstudio se usará función read_dengue_dataset del paquete denhotspots incluido en el dengueverse. La función esta especializada en cargar las bases del SINAVE y cuenta con 4 argumentos (path, spatial resolution, des_edo_res y status_caso).</p>
 <table class="caption-top table">
 <caption>Argumentos de la función <em>read_dengue_dataset</em>
 </caption>
@@ -403,6 +403,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">“JALISCO”</td>
 </tr>
 <tr class="even">
+<td>des_mpo_res</td>
+<td style="text-align: left;">Municipio de Reporte</td>
+<td style="text-align: left;">texto</td>
+<td style="text-align: left;">“JALISCO”</td>
+</tr>
+<tr class="odd">
 <td>status_caso</td>
 <td style="text-align: left;">Estatus del Caso</td>
 <td style="text-align: left;">númerico</td>
@@ -412,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <section id="código" class="level5" data-number="4.2.1.1.1"><h5 data-number="4.2.1.1.1" class="anchored" data-anchor-id="código">
 <span class="header-section-number">4.2.1.1.1</span> Código</h5>
-<p>Para subir la bases de casos de dengue del SINAVE primero se específica la ruta donde se bajo y descomprimió el archivo txt (DENGUE2_.txt), segundo se define la resolución espacial a la cual se va trabajar (lacional, estatal o municipal). En nuestro ejemplo del proyecto de geocodificación de Jalisco se trabajará a nivel estatal (spatial_resolution = “state”). Tercero se establece el estado (Recordar que el SINAVE usa mayusculas en la base) con el que se va trabajar. En nuestro ejemplo es el estado de Jalisco (des_edo_res = “JALISCO”). Por último, se define el Estatus del Caso (status_caso) con el que se va trabajar, esta variable en la base del SINAVE tiene tres valores 1 para indicar los casos probables, 2 para indicar los casos confirmados, y 3 para indicar los casos descartados. En la última reunión nacional de vectores realizada en Oaxaca del 23 de febrero al 1 de marzo, se acordo trabajar con casos probables (status_caso = 1) y confirmados (status_caso = 2).</p>
+<p>Para subir la bases de casos de dengue del SINAVE primero se específica la ruta donde se bajo y descomprimió el archivo txt (DENGUE2_.txt), segundo se define la resolución espacial a la cual se va trabajar (nacional, estatal o municipal). En nuestro ejemplo del proyecto de geocodificación de Jalisco se trabajará a nivel estatal (spatial_resolution = “state”). Tercero se establece el estado (Recordar que el SINAVE usa mayusculas en la base) con el que se va trabajar. En nuestro ejemplo es el estado de Jalisco (des_edo_res = “JALISCO”). Por último, se define el Estatus del Caso (status_caso) con el que se va trabajar, esta variable en la base del SINAVE tiene tres valores 1 para indicar los casos probables, 2 para indicar los casos confirmados, y 3 para indicar los casos descartados. En la última reunión nacional de vectores realizada en Oaxaca del 23 de febrero al 1 de marzo, se acordo trabajar con casos probables (status_caso = 1) y confirmados (status_caso = 2).</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Step 1. Load the accumulated dengue dataset ####</span></span>
 <span><span class="co"># Paso 1. Cargar la base de datos de dengue acumulados ####</span></span>
@@ -422,13 +428,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>                                      des_edo_res <span class="op">=</span> <span class="st">"JALISCO"</span>,</span>
 <span>                                      status_caso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Cuando el argumento spatial_resolution es country, el argumento des_edo_res es NULL (NULO) o se omite.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">path_dengue</span> <span class="op">&lt;-</span> <span class="st">"1.data/2.ultima_semana_acumulado/DENGUE2_.txt"</span></span>
+<span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">denhotspots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/denhotspots/man/read_dengue_dataset.html">read_dengue_dataset</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_dengue</span>,</span>
+<span>                                       spatial_resolution <span class="op">=</span> <span class="st">"country"</span>,</span>
+<span>                                       status_caso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cuando el argumento spatial_resolution es country, es municipality, se tiene que definir los argumentos des_edo_res y des_mpo_res.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">path_dengue</span> <span class="op">&lt;-</span> <span class="st">"1.data/2.ultima_semana_acumulado/DENGUE2_.txt"</span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">denhotspots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/denhotspots/man/read_dengue_dataset.html">read_dengue_dataset</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">path_dengue</span>,</span>
+<span>                                       spatial_resolution <span class="op">=</span> <span class="st">"municipality"</span>,</span>
+<span>                                       des_edo_res <span class="op">=</span> <span class="st">"GUERRERO"</span>,</span>
+<span>                                       des_mpo_res <span class="op">=</span> <span class="st">"ACAPULCO DE JUAREZ"</span>,</span>
+<span>                                      status_caso <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
 </section><section id="guardar-el-archivo" class="level5" data-number="4.2.1.1.2"><h5 data-number="4.2.1.1.2" class="anchored" data-anchor-id="guardar-el-archivo">
 <span class="header-section-number">4.2.1.1.2</span> Guardar el archivo</h5>
-<p>Podemos verificar si se subio la base a travéz de observar el ambiente de trabajo y notar si se subio la base como un objeto <em>z</em>. La base se puese explorar a traves de varias funciones y paquetes como str, glimse, skim, gt_plt_summary.</p>
+<p>Podemos verificar si se subio la base a través de observar el ambiente de trabajo y notar si se subió la base como un objeto <em>z</em>. La base se puese explorar a través de varias funciones y paquetes como str, glimse, skim, gt_plt_summary.</p>
 <p>base R (str, head, tail, dim)</p>
 <p>str</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Classes 'data.table' and 'data.frame':  2722 obs. of  28 variables:
  $ FOL_ID             : chr  "14039AADL980223" "14039POME200901" "14039CABM031002" "126NIHS961014" ...
@@ -464,7 +495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>head</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            FOL_ID  VEC_ID IDE_EDA_ANO IDE_SEX DES_CAL         IDE_CAL NUM_EXT
             &lt;char&gt;   &lt;int&gt;       &lt;int&gt;   &lt;int&gt;  &lt;char&gt;          &lt;char&gt;  &lt;char&gt;
@@ -518,7 +549,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>tail</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            FOL_ID  VEC_ID IDE_EDA_ANO IDE_SEX DES_CAL               IDE_CAL
             &lt;char&gt;   &lt;int&gt;       &lt;int&gt;   &lt;int&gt;  &lt;char&gt;                &lt;char&gt;
@@ -571,14 +602,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2722   28</code></pre>
 </div>
 </div>
 <p>dplyr::glimse</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,722
 Columns: 28
@@ -614,7 +645,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
 </div>
 <p>skimr</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">skimr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html">skim</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -1065,26 +1096,26 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
 </div>
 <p>gt_plt_summary</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_plt_summary.html">gt_plt_summary</a></span><span class="op">(</span><span class="va">z</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FOL_ID</span>, <span class="va">VEC_ID</span>, <span class="va">CVE_LOC_RES</span>, <span class="va">DES_DIAG_PROBABLE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">gtExtras</span><span class="fu">::</span><span class="fu"><a href="https://jthomasmock.github.io/gtExtras/reference/gt_plt_summary.html">gt_plt_summary</a></span><span class="op">(</span><span class="va">z</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FOL_ID</span>, <span class="va">VEC_ID</span>, <span class="va">CVE_LOC_RES</span>, <span class="va">DES_DIAG_PROBABLE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="iqjkcbsksv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="qhxwillbfk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#iqjkcbsksv table {
+#qhxwillbfk table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iqjkcbsksv thead, #iqjkcbsksv tbody, #iqjkcbsksv tfoot, #iqjkcbsksv tr, #iqjkcbsksv td, #iqjkcbsksv th {
+#qhxwillbfk thead, #qhxwillbfk tbody, #qhxwillbfk tfoot, #qhxwillbfk tr, #qhxwillbfk td, #qhxwillbfk th {
   border-style: none;
 }
 
-#iqjkcbsksv p {
+#qhxwillbfk p {
   margin: 0;
   padding: 0;
 }
 
-#iqjkcbsksv .gt_table {
+#qhxwillbfk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1110,12 +1141,12 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-left-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_caption {
+#qhxwillbfk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iqjkcbsksv .gt_title {
+#qhxwillbfk .gt_title {
   color: #333333;
   font-size: 24px;
   font-weight: initial;
@@ -1127,7 +1158,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-bottom-width: 0;
 }
 
-#iqjkcbsksv .gt_subtitle {
+#qhxwillbfk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1139,7 +1170,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-top-width: 0;
 }
 
-#iqjkcbsksv .gt_heading {
+#qhxwillbfk .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1151,13 +1182,13 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-right-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_bottom_border {
+#qhxwillbfk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 0px;
   border-bottom-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_col_headings {
+#qhxwillbfk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 0px;
   border-top-color: #D3D3D3;
@@ -1172,7 +1203,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-right-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_col_heading {
+#qhxwillbfk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1192,7 +1223,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   overflow-x: hidden;
 }
 
-#iqjkcbsksv .gt_column_spanner_outer {
+#qhxwillbfk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1204,15 +1235,15 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 4px;
 }
 
-#iqjkcbsksv .gt_column_spanner_outer:first-child {
+#qhxwillbfk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iqjkcbsksv .gt_column_spanner_outer:last-child {
+#qhxwillbfk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iqjkcbsksv .gt_column_spanner {
+#qhxwillbfk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1224,11 +1255,11 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   width: 100%;
 }
 
-#iqjkcbsksv .gt_spanner_row {
+#qhxwillbfk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iqjkcbsksv .gt_group_heading {
+#qhxwillbfk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1254,7 +1285,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   text-align: left;
 }
 
-#iqjkcbsksv .gt_empty_group_heading {
+#qhxwillbfk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1269,15 +1300,15 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   vertical-align: middle;
 }
 
-#iqjkcbsksv .gt_from_md > :first-child {
+#qhxwillbfk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iqjkcbsksv .gt_from_md > :last-child {
+#qhxwillbfk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iqjkcbsksv .gt_row {
+#qhxwillbfk .gt_row {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 5px;
@@ -1296,7 +1327,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   overflow-x: hidden;
 }
 
-#iqjkcbsksv .gt_stub {
+#qhxwillbfk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -1309,7 +1340,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 5px;
 }
 
-#iqjkcbsksv .gt_stub_row_group {
+#qhxwillbfk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1323,15 +1354,15 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   vertical-align: top;
 }
 
-#iqjkcbsksv .gt_row_group_first td {
+#qhxwillbfk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iqjkcbsksv .gt_row_group_first th {
+#qhxwillbfk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iqjkcbsksv .gt_summary_row {
+#qhxwillbfk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1341,16 +1372,16 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 5px;
 }
 
-#iqjkcbsksv .gt_first_summary_row {
+#qhxwillbfk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_first_summary_row.thick {
+#qhxwillbfk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iqjkcbsksv .gt_last_summary_row {
+#qhxwillbfk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1360,7 +1391,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-bottom-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_grand_summary_row {
+#qhxwillbfk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1370,7 +1401,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 5px;
 }
 
-#iqjkcbsksv .gt_first_grand_summary_row {
+#qhxwillbfk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1380,7 +1411,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-top-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_last_grand_summary_row_top {
+#qhxwillbfk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1390,11 +1421,11 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-bottom-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_striped {
+#qhxwillbfk .gt_striped {
   background-color: #FAFAFA;
 }
 
-#iqjkcbsksv .gt_table_body {
+#qhxwillbfk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1403,7 +1434,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-bottom-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_footnotes {
+#qhxwillbfk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1417,7 +1448,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-right-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_footnote {
+#qhxwillbfk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1426,7 +1457,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 5px;
 }
 
-#iqjkcbsksv .gt_sourcenotes {
+#qhxwillbfk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1440,7 +1471,7 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   border-right-color: #D3D3D3;
 }
 
-#iqjkcbsksv .gt_sourcenote {
+#qhxwillbfk .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1448,72 +1479,72 @@ $ FEC_INGRESO         &lt;IDate&gt; NA, NA, NA, NA, NA, NA, NA, NA, 2025-01-01, 
   padding-right: 5px;
 }
 
-#iqjkcbsksv .gt_left {
+#qhxwillbfk .gt_left {
   text-align: left;
 }
 
-#iqjkcbsksv .gt_center {
+#qhxwillbfk .gt_center {
   text-align: center;
 }
 
-#iqjkcbsksv .gt_right {
+#qhxwillbfk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iqjkcbsksv .gt_font_normal {
+#qhxwillbfk .gt_font_normal {
   font-weight: normal;
 }
 
-#iqjkcbsksv .gt_font_bold {
+#qhxwillbfk .gt_font_bold {
   font-weight: bold;
 }
 
-#iqjkcbsksv .gt_font_italic {
+#qhxwillbfk .gt_font_italic {
   font-style: italic;
 }
 
-#iqjkcbsksv .gt_super {
+#qhxwillbfk .gt_super {
   font-size: 65%;
 }
 
-#iqjkcbsksv .gt_footnote_marks {
+#qhxwillbfk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iqjkcbsksv .gt_asterisk {
+#qhxwillbfk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iqjkcbsksv .gt_indent_1 {
+#qhxwillbfk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iqjkcbsksv .gt_indent_2 {
+#qhxwillbfk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iqjkcbsksv .gt_indent_3 {
+#qhxwillbfk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iqjkcbsksv .gt_indent_4 {
+#qhxwillbfk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iqjkcbsksv .gt_indent_5 {
+#qhxwillbfk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#iqjkcbsksv .katex-display {
+#qhxwillbfk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#iqjkcbsksv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qhxwillbfk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1604,7 +1635,7 @@ DENGUE NO GRAVE, DENGUE CON SIGNOS DE ALARMA and DENGUE GRAVE
 <section id="código-1" class="level5" data-number="4.2.1.2.1"><h5 data-number="4.2.1.2.1" class="anchored" data-anchor-id="código-1">
 <span class="header-section-number">4.2.1.2.1</span> Código</h5>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">z</span>, </span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">z</span>, </span>
 <span>          file <span class="op">=</span> <span class="st">"dengue_edo14_2025_03_03.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section></section><section id="fase-2" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="fase-2">
@@ -1612,11 +1643,87 @@ DENGUE NO GRAVE, DENGUE CON SIGNOS DE ALARMA and DENGUE GRAVE
 <p>El segundo script (2.0.geocodificación_dengue_dataset.R) de la carpeta 1.primera_vez corresponde a la segunda fase de la geocodificación. La segunda fase se divide en siete pasos.</p>
 <section id="paso-1.-nombre-de-la-base" class="level4" data-number="4.2.2.1"><h4 data-number="4.2.2.1" class="anchored" data-anchor-id="paso-1.-nombre-de-la-base">
 <span class="header-section-number">4.2.2.1</span> Paso 1. Nombre de la base</h4>
+<p>En este paso recuperamos el nombre del archivo como lo guardamos en el fase 1, paso 2 y lo asignamos a un objeto llamado infile</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">infile</span> <span class="op">&lt;-</span> <span class="st">"dengue_edo14_2025_03_03"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section><section id="paso-2.-direcciones-a-gecodificar" class="level4" data-number="4.2.2.2"><h4 data-number="4.2.2.2" class="anchored" data-anchor-id="paso-2.-direcciones-a-gecodificar">
 <span class="header-section-number">4.2.2.2</span> Paso 2. Direcciones a gecodificar</h4>
-</section><section id="paso-3.-manipulación-de-las-direcciones" class="level4" data-number="4.2.2.3"><h4 data-number="4.2.2.3" class="anchored" data-anchor-id="paso-3.-manipulación-de-las-direcciones">
+<p>En el paso 2. se extrae el vectores de direcciones de los domicilios de los casos probables y confirmados con la finalidad de geocodificarlos. La función que realiza esta tarea es data_geocoden del paquete denhotspots y la función cuenta con tres argumentos.</p>
+<table class="table-striped table-hover caption-top table">
+<caption>Argumentos de la función <strong>data_geocoden</strong>
+</caption>
+<colgroup>
+<col style="width: 37%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead><tr class="header">
+<th>Argumento</th>
+<th>Definición</th>
+<th>Tipo de Dato</th>
+<th>Valores</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>infile</td>
+<td>Nombre de la base dengue guardado como csv</td>
+<td>texto</td>
+<td>infile</td>
+</tr>
+<tr class="even">
+<td>data</td>
+<td>Es un valor logico para definir si regresa la base completa (TRUE) o el vector de direcciones(F)</td>
+<td>Lógico</td>
+<td>TRUE o FALSE</td>
+</tr>
+<tr class="odd">
+<td>sinave_new</td>
+<td>Es un valor lógico para definir la base, si es TRUE regres una base con estructura del 2016 al año en curso, de lo contrario regresa una base del 2008-2015</td>
+<td>Lógico</td>
+<td>TRUE o FALSE</td>
+</tr>
+</tbody>
+</table>
+<section id="código-2" class="level5" data-number="4.2.2.2.1"><h5 data-number="4.2.2.2.1" class="anchored" data-anchor-id="código-2">
+<span class="header-section-number">4.2.2.2.1</span> Código</h5>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">addresses</span> <span class="op">&lt;-</span> <span class="fu">denhotspots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/denhotspots/man/data_geocoden.html">data_geocoden</a></span><span class="op">(</span>infile <span class="op">=</span> <span class="va">infile</span>,</span>
+<span>                                        data <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                        sinave_new <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">addresses</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PRIVADA PABLO  ,Colonia EL CAMPESINO , 45597 SAN PEDRO TLAQUEPAQUE, Jalisco,Mexico"         
+[2] "CALLE ALBAÑILES 3335, LAS CABAÑITAS , 45180 ZAPOPAN, Jalisco,Mexico"                        
+[3] "CALLE TONALA 180, LOMAS DE LA PRIMAVERA , 45065 ZAPOPAN, Jalisco,Mexico"                    
+[4] "CALLE PERDIZ 1461, MORELOS , 44910 GUADALAJARA  JAL, Jalisco,Mexico"                        
+[5] "CALLE LAZARO CARDENAS 25, Congregaci EL CORCOVADO , 48914 AUTLAN DE NAVARRO, Jalisco,Mexico"
+[6] "CALLE MORLEOS 09, Congregaci SAN MIGUEL HIDALGO , 48715 LIMON EL, Jalisco,Mexico"           </code></pre>
+</div>
+</div>
+</section></section><section id="paso-3.-manipulación-de-las-direcciones" class="level4" data-number="4.2.2.3"><h4 data-number="4.2.2.3" class="anchored" data-anchor-id="paso-3.-manipulación-de-las-direcciones">
 <span class="header-section-number">4.2.2.3</span> Paso 3. Manipulación de las direcciones</h4>
-</section><section id="paso-4.-geocodificación" class="level4" data-number="4.2.2.4"><h4 data-number="4.2.2.4" class="anchored" data-anchor-id="paso-4.-geocodificación">
+<p>Este paso es unicamente necesario cuando el proceso de geocodificación de detenga por un error en los elementos que comforman el vector de direcciones. Por ejemplo si el vector de direcciones es la siguiente “Avenida Reforma 36, CENTRO CENTRO, 62744 CUAUTLA MOR, Morelos, Mexico”, el elemento (“CENTRO CENTRO,”), puede causar un error debido a que se repite la colonia CENTRO y también esta de más la palabra MOR. Para corregir el error primero entramos usamos la función str_replace_all del paquete stringr o lo realizamos manual</p>
+<section id="código-3" class="level5" data-number="4.2.2.3.1"><h5 data-number="4.2.2.3.1" class="anchored" data-anchor-id="código-3">
+<span class="header-section-number">4.2.2.3.1</span> Código</h5>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">addresses</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">addresses</span>,</span>
+<span>                                      pattern <span class="op">=</span> <span class="st">"CENTRO  CENTRO,"</span>,</span>
+<span>                                      replacement <span class="op">=</span> <span class="st">" CENTRO,"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">addresses</span> <span class="op">&lt;-</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">addresses</span>,</span>
+<span>                                      pattern <span class="op">=</span> <span class="st">"CUAUTLA MOR,"</span>,</span>
+<span>                                      replacement <span class="op">=</span> <span class="st">" CUAUTLA,"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Manual</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">addresses</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Avenida Reforma 36, CENTRO, 62744 CUAUTLA, Morelos, Mexico"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section><section id="paso-4.-geocodificación" class="level4" data-number="4.2.2.4"><h4 data-number="4.2.2.4" class="anchored" data-anchor-id="paso-4.-geocodificación">
 <span class="header-section-number">4.2.2.4</span> Paso 4. Geocodificación</h4>
 </section><section id="paso-5.-cargar-la-base-geocodificada" class="level4" data-number="4.2.2.5"><h4 data-number="4.2.2.5" class="anchored" data-anchor-id="paso-5.-cargar-la-base-geocodificada">
 <span class="header-section-number">4.2.2.5</span> Paso 5. Cargar la base geocodificada</h4>
